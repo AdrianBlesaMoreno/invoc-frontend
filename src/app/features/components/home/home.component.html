@@ -1,0 +1,40 @@
+
+<div class="p-grid p-m-2">
+    <!-- COLUMNA 1 -->
+    <div class="p-col-12 p-md-12 p-lg-12 p-xl-8">
+        <div class="p-grid">
+            <div *ngFor="let dashpane of dashpanesColumn1; index as i" [class]="getWidthClass(dashpane)"
+                [style]="getHeightStyle(dashpane.size.height)">
+                <div class="card">
+                    <container-element [ngSwitch]="dashpane.type">
+                        <some-element *ngSwitchCase="'overview'">
+                            <app-overview-pane [config]="dashpane.config"></app-overview-pane>
+                        </some-element>
+                        <some-element *ngSwitchCase="'data_table'">
+                            <app-table-pane [config]="dashpane.config"></app-table-pane>
+                        </some-element>
+                    </container-element>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLUMNA 2 -->
+    <div class="p-col-12 p-md-12 p-lg-12 p-xl-4">
+        <div class="p-grid">
+            <div *ngFor="let dashpane of dashpanesColumn2; index as i" [class]="getWidthClass(dashpane)"
+                [style]="getHeightStyle(dashpane.size.height)">
+                <div class="card">
+                    <container-element [ngSwitch]="dashpane.type">
+                        <some-element *ngSwitchCase="'overview'">
+                            <app-overview-pane [config]="dashpane.config"></app-overview-pane>
+                        </some-element>
+                        <some-element *ngSwitchCase="'data_table'">
+                            <app-table-pane [config]="dashpane.config"></app-table-pane>
+                        </some-element>
+                    </container-element>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

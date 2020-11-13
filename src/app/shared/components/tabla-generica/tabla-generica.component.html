@@ -1,0 +1,60 @@
+<p-table #dt styleClass="ui-table" [value]="entities" [lazy]="true" (onLazyLoad)="loadEntitiesLazy($event)"
+    [rows]="requestFilter.size" [totalRecords]="totalRecords" [loading]="loading" [paginator]="true" sortMode="multiple"
+    [autoLayout]="true" [resizableColumns]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <ng-container *ngFor="let fieldConfig of tableConfig">
+                <div *ngIf="fieldConfig.sort; then thenBlock else elseBlock">
+                </div>
+
+                <ng-template #thenBlock>
+                    <th *ngIf="fieldConfig.permisos == undefined || contienePermisos(fieldConfig.permisos)"
+                        [pSortableColumn]="fieldConfig.sort ? fieldConfig.field : undefined" >
+                        {{fieldConfig.nombre}}
+                        <p-sortIcon [field]="fieldConfig.field"></p-sortIcon>
+                    </th>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <th *ngIf="fieldConfig.permisos == undefined || contienePermisos(fieldConfig.permisos)">
+                        {{fieldConfig.nombre}}
+                    </th>
+                </ng-template>
+
+            </ng-container>
+            <th>
+                Opciones
+            </th>
+        </tr>
+        <tr>
+            <th *ngFor="let fieldConfig of tableConfig" style="padding: .5em;">
+                <input *ngIf="fieldConfig.filter" pInputText type="text" placeholder="{{fieldConfig.nombre}}"
+                    style="width: 100%; margin-top: 0;" class="ui-column-filter"
+                    (input)="dt.filter($event.target.value, fieldConfig.field, 'contains')">
+            </th>
+            <th *ngIf="contienePermisos(['UPDATE_USUARIO']) || contienePermisos(['DELETE_USUARIO'])"
+                style="padding: .5em;"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData>
+        <tr>
+            <ng-container *ngFor="let fieldConfig of tableConfig">
+                <td *ngIf="fieldConfig == undefined || contienePermisos(fieldConfig.permisos)">
+                    <app-campo [dato]="rowData[fieldConfig.field]" [tipo]="fieldConfig.tipo"></app-campo>
+                </td>
+            </ng-container>
+            <td>
+                <div>
+                    <button type="button" (click)="buttonEvent({type:'edit', data: rowData})" icon="ui-icon-create" style="margin-right: .5em" pButton></button>
+                    <button type="button" (click)="buttonEvent({type:'remove', data: rowData})" icon="ui-icon-delete-forever" class="ui-button-secondary" pButton></button>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+        <button type="button" (click)="buttonEvent({type: 'add'})" pButton icon="ui-icon-add" label="Nuevo"
+            class="ui-button-secondary"></button>
+    </ng-template>
+    <ng-template pTemplate="paginatorright" let-state>
+        <span>Pagina {{state.page+1}} de {{state.pageCount}}</span>
+    </ng-template>
+</p-table>

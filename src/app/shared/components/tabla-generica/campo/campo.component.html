@@ -1,0 +1,9 @@
+<div [ngSwitch]="tipo">
+    <div *ngSwitchCase="tipos.TEXTO">{{dato}}</div>
+    <div *ngSwitchCase="tipos.FECHA">{{dato | date: 'dd-MM-yyy HH:mm'}}</div>
+    <div *ngSwitchCase="tipos.FECHA_HORA">{{dato | date: 'dd-MM-yyy'}}</div>
+    <div *ngSwitchCase="tipos.ACTIVO">
+        <span [class]="'badge status-' + (dato ? 'activo' : 'inactivo')">{{dato ? 'Activo' : 'Inactivo'}}</span>
+    </div>
+    <div *ngSwitchDefault>{{dato}}</div>
+</div>

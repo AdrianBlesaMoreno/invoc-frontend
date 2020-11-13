@@ -1,0 +1,14 @@
+<div [className]="'overview-box overview-box-' + config.model" style="cursor: pointer;">
+    <div class="overview-box-name">{{config.title}}</div>
+    <div class="overview-box-count">
+        <div class="ml-2">{{config.count}}</div>
+    </div>
+    <div class="overview-box-image">
+        <i [className]="'pi ' + config.icon" style="font-size: 4rem"></i>
+    </div>
+    <!--div class="overview-box-subinfo p-grid">
+        <div class="p-col">
+            Ultima Factura: 16-20-2020
+        </div>
+    </div-->
+</div>

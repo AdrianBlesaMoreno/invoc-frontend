@@ -1,0 +1,3 @@
+<app-tabla-generica [entities]="data" [loading]="false"
+                [totalRecords]="data.size" [permisos]="permisos" [tableConfig]="tableConfig"
+                [(requestFilter)]="requestFilter" (loadAll)="getAll()" (click)="onClick($event)"></app-tabla-generica>
